@@ -13,5 +13,22 @@ unset PGPASSWD
 
 >&2 echo "Postgres is up"
 
+# Generate secret
+if [ ! -f /app/data/secret ] ; then
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9~!@#$%^&*_()+}{?></";.,[]=-' | fold -w 50 | head -n 1 > /app/data/secret
+fi
+
+# Migrate database to current version and collect static files
+if [ "x$1" = "xrunserver" ] ; then
+    $START_CMD migrate
+    $START_CMD collectstatic --noinput
+    if [ -n "$WEBLATE_ADMIN_PASSWORD" ] ; then
+        # This will fail on consequent runs
+        $START_CMD createadmin --password="$WEBLATE_ADMIN_PASSWORD" || true
+        # Add following once upgraded to Weblate 2.9:
+        # --update --email="$WEBLATE_ADMIN_EMAIL" --name="$WEBLATE_ADMIN_NAME"
+    fi
+fi
+
 #start the daemon
 exec $START_CMD "$@"

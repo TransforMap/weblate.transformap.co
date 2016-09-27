@@ -5,12 +5,21 @@
 WEBLATE_DEBUG=1
 WEBLATE_LOGLEVEL=DEBUG
 WEBLATE_SITE_TITLE=Weblate
+<<<<<<< HEAD:weblate/environment.example
 WEBLATE_ADMIN_NAME=transformap
 WEBLATE_ADMIN_EMAIL=mapping@transformap.co
 WEBLATE_SERVER_EMAIL=mapping@transformap.co
 WEBLATE_DEFAULT_FROM_EMAIL=mapping@transformap.co
 WEBLATE_ALLOWED_HOSTS=*
 WEBLATE_SECRET_KEY="(ft(y^0@*h7e+)za%7ike2v8!u9y6kp0gbf96k9*mym7bjs341"
+=======
+WEBLATE_ADMIN_NAME=Weblate Admin
+WEBLATE_ADMIN_EMAIL=noreply@weblate.org
+WEBLATE_ADMIN_PASSWORD=
+WEBLATE_SERVER_EMAIL=noreply@weblate.org
+WEBLATE_DEFAULT_FROM_EMAIL=noreply@weblate.org
+WEBLATE_ALLOWED_HOSTS=*
+>>>>>>> 4dc72377f3b7e7fceca7d2bb07a2a0dd8d3ab62c:weblate/environment
 WEBLATE_REGISTRATION_OPEN=1
 
 # Extra

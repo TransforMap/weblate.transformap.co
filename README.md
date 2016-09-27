@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/WeblateOrg/docker.svg?branch=master)](https://travis-ci.org/WeblateOrg/docker)
 
-[![Docker Layers](https://images.microbadger.com/badges/image/nijel/weblate.svg)](http://microbadger.com/images/nijel/weblate "Get your own image badge on microbadger.com")
+[![Docker Layers](https://images.microbadger.com/badges/image/nijel/weblate.svg)](https://microbadger.com/images/nijel/weblate "Get your own image badge on microbadger.com")
 
-[![Docker Badge](https://images.microbadger.com/badges/version/nijel/weblate.svg)](http://microbadger.com/images/nijel/weblate "Get your own version badge on microbadger.com")
+[![Docker Badge](https://images.microbadger.com/badges/version/nijel/weblate.svg)](https://microbadger.com/images/nijel/weblate "Get your own version badge on microbadger.com")
 
 Docker container for Weblate
 
@@ -28,26 +28,19 @@ https://docs.weblate.org/en/latest/admin/deployments.html#docker
           - WEBLATE_EMAIL_HOST=email.com
           - WEBLATE_EMAIL_HOST_USER=user
           - WEBLATE_EMAIL_HOST_PASSWORD=pass
-          - WEBLATE_SECRET_KEY=something more secret
           - WEBLATE_ALLOWED_HOSTS=your hosts
+          - WEBLATE_ADMIN_PASSWORD=password for admin user
     ```
 
 2. Build the instances
 
         docker-compose build
 
-3. Setup the environment
-
-        docker-compose run --rm weblate migrate
-        docker-compose run --rm weblate collectstatic --noinput
-        # Note the admin password from this setp.
-        docker-compose run --rm weblate createadmin
-
-4. Start up
+3. Start up
 
         docker-compose up
 
-5. For more detailed instructions visit https://docs.weblate.org/en/latest/admin/deployments.html#docker
+4. For more detailed instructions visit https://docs.weblate.org/en/latest/admin/deployments.html#docker
 
 ## Maintenance tasks
 

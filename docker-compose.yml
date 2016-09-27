@@ -1,39 +1,47 @@
 version: '2'
+
 services:
   weblate:
     build: weblate
     links:
       - database
       - cache
+    expose:
+      - "8000"
     volumes:
-      - weblate-data:/app/data
+      - /srv/docker-state/weblate/weblate/rootfs/app/data:/app/data
+      - /srv/docker-state/weblate/weblate/rootfs/home/weblate:/home/weblate
     env_file:
       - ./weblate/environment
-    restart: always
+      - ./weblate/environment.proxy
+    networks:
+      - frontend
+      - backend
     depends_on:
       - database
       - cache
-  web:
-    build: nginx
-    links:
-      - weblate
-    ports:
-      - "8000:80"
-    volumes_from:
-      - weblate:ro
     restart: always
-    depends_on:
-      - weblate
   database:
+    # You can change used database here:
     image: postgres:9.4
+    expose: ["5432"]
+    volumes:
+    #  - ./weblate/mysql-charset.conf:/etc/mysql/conf.d/charset.cnf
+      - /srv/docker-state/weblate/postgres/rootfs/var/lib/postgresql/data:/var/lib/postgresql/data/
     env_file:
       - ./weblate/environment
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend
     restart: always
   cache:
     image: memcached:1.4
+    networks:
+      - backend
     restart: always
-volumes:
-  weblate-data: {}
-  postgres-data: {}
+
+networks:
+  frontend:
+    external:
+      name: nginx_default
+  backend:
+    driver: bridge
